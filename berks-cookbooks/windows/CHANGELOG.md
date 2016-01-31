@@ -2,6 +2,36 @@ windows Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the windows cookbook.
 
+v1.39.1
+--------------------
+- [PR 325](https://github.com/chef-cookbooks/windows/pull/325) - Raise an error if a bogus feature is given to the powershell `windows_feature` provider
+- [PR 326](https://github.com/chef-cookbooks/windows/pull/326) - Fix `windows_font` and copy the font file before installation
+
+v1.39.0
+--------------------
+- [PR 305](https://github.com/chef-cookbooks/windows/pull/305) - Added `months` attribute to `windows_task` and allow `frequency_modifier` to accept values 'FIRST', 'SECOND', 'THIRD', 'FOURTH', 'LAST', and 'LASTDAY' for monthly frequency
+- [PR 310](https://github.com/chef-cookbooks/windows/pull/310) - Fix `windows_task` breaks when there is a space in the user name
+- [PR 314](https://github.com/chef-cookbooks/windows/pull/314) - fixes reboot handling on some chef versions below 11.12
+- [PR 317](https://github.com/chef-cookbooks/windows/pull/317) - Adds a `disable_windows_task` matcher
+- [PR 311](https://github.com/chef-cookbooks/windows/pull/311) - Implements the `cwd` attribute of `windows_task`
+- [PR 318](https://github.com/chef-cookbooks/windows/pull/318) - Use dsl instead of manual resource instanciation
+- [PR 303](https://github.com/chef-cookbooks/windows/pull/303) - Fix `http_acl` idempotency when user name contains a space
+- [PR 257](https://github.com/chef-cookbooks/windows/pull/257) - Speed up windows_feature dism provider
+- [PR 319](https://github.com/chef-cookbooks/windows/pull/319) - Add a `.kitchen.cloud.yml` for kitchen testing on Azure
+- [PR 315](https://github.com/chef-cookbooks/windows/pull/315) - Deprecate `windows_package` and forward to `Chef::Provider::Package::Windows` when running 12.6 or higher
+
+v1.38.4
+--------------------
+- [PR 295](https://github.com/chef-cookbooks/windows/pull/295) - Escape `http_acl` username
+- [PR 293](https://github.com/chef-cookbooks/windows/pull/293) - Separating assignments to `code_script` and `guard_script` as they should be different scripts and not hold the same reference
+- [Issue 298](https://github.com/chef-cookbooks/windows/issues/298) - `windows_certificate_binding` is ignoring `store_name` attribute and always saving to `MY`
+- [Issue 296](https://github.com/chef-cookbooks/windows/pull/302) - Fixes `windows_certificate` idempotentcy on chef 11 clients
+
+v1.38.3
+--------------------
+- Make `windows_task` resource idempotent (double quotes need to be single when comparing)
+- [Issue 245](https://github.com/chef-cookbooks/windows/issues/256) - Fix `No resource, method, or local variable named `password' for `Chef::Provider::WindowsTask'` when `interactive_enabled` is `true`
+
 v1.38.2
 --------------------
 - Lazy-load windows-pr gem library files. Chef 12.5 no longer includes the windows-pr gem. Earlier versions of this cookbook will not compile on Chef 12.5.

@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box = "ubuntu/trusty64"
 
   if Vagrant.has_plugin? 'vagrant-omnibus'
     # Set Chef version for Omnibus
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
   # Forward MySql port on 33066, used for connecting admin-clients to localhost:33066
   config.vm.network :forwarded_port, guest: 3306, host: 33066
   # Forward http port on 8080, used for connecting web browsers to localhost:8080
-  config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 80, host: 8888
   # Forward http port on 8025, used for connecting web browsers to MailHog
   config.vm.network :forwarded_port, guest: 8025, host: 8025
 
@@ -57,11 +57,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_zero do |chef|
     chef.cookbooks_path = ["berks-cookbooks", "cookbooks"]
     chef.data_bags_path = "data_bags"
+    chef.nodes_path      = "cookbooks"
 
     # List of recipes to run
+    # chef.add_recipe "php53"
     chef.add_recipe "vagrant_main"
-    chef.add_recipe "vagrant_main::nodejs"
-    chef.add_recipe "vagrant_main::wordpress"
-    chef.add_recipe "vagrant_main::magento"
+    # chef.add_recipe "vagrant_main::wordpress"
   end
 end

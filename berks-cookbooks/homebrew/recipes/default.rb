@@ -2,9 +2,9 @@
 # Author:: Joshua Timberman (<jtimberman@chef.io>)
 # Author:: Graeme Mathieson (<mathie@woss.name>)
 # Cookbook Name:: homebrew
-# Recipes:: default
+# Recipe:: default
 #
-# Copyright 2011-2013, Chef Software, Inc.
+# Copyright 2011-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ end
 
 execute 'install homebrew' do
   command homebrew_go
-  user node['homebrew']['owner'] || homebrew_owner
+  environment lazy { { 'HOME' => ::Dir.home(homebrew_owner), 'USER' => homebrew_owner } }
+  user homebrew_owner
   not_if { ::File.exist? '/usr/local/bin/brew' }
 end
 
@@ -43,6 +44,7 @@ if node['homebrew']['auto-update']
   end
 
   execute 'update homebrew from github' do
+    environment lazy { { 'HOME' => ::Dir.home(homebrew_owner), 'USER' => homebrew_owner } }
     user homebrew_owner
     command '/usr/local/bin/brew update || true'
   end
